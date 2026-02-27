@@ -1,52 +1,56 @@
-# laba5maven
-Реализовать консольное приложение, которое реализует управление коллекцией объектов в интерактивном режиме. В коллекции необходимо хранить объекты класса **Product**, описание которого приведено ниже.
+## Stage 1 (Lab 5)
 
-Разработанная программа должна удовлетворять следующим требованиям:
+Implement a console application that manages a collection of objects in interactive mode. The collection must store objects of the `Product` class, whose description is given below.
 
-- Класс, коллекцией экземпляров которого управляет программа, должен реализовывать сортировку по умолчанию.  
-- Все требования к полям класса (указанные в виде комментариев) должны быть выполнены.  
-- Для хранения необходимо использовать коллекцию типа *java.util.HashMap*  
-- При запуске приложения коллекция должна автоматически заполняться значениями из файла.  
-- Имя файла должно передаваться программе с помощью: *переменная окружения*.  
-- Данные должны храниться в файле в формате *xml*   
-- Чтение данных из файла необходимо реализовать с помощью класса java.io.FileReader*  
-- Запись данных в файл необходимо реализовать с помощью класса *java.io.FileWriter*  
-- Все классы в программе должны быть задокументированы в формате *javadoc*.  
-- Программа должна корректно работать с неправильными данными (ошибки пользовательского ввода, отсутсвие прав доступа к файлу и т.п.).  
+The developed program must meet the following requirements:
 
-----
+- The class whose instances are managed by the program must implement a default sort order.
+- All field requirements of the class (specified as comments) must be fulfilled.
+- Use a collection of type `java.util.HashMap` for storage.
+- When the application starts, the collection must be automatically populated with values from a file.
+- The file name must be passed to the program via an environment variable.
+- Data must be stored in the file in XML format.
+- Reading data from the file must be implemented using `java.io.FileReader*`.
+- Writing data to the file must be implemented using `java.io.FileWriter`.
+- All classes in the program must be documented in Javadoc format.
+- The program must handle invalid data correctly (user input errors, missing file access permissions, etc.).
 
-*В интерактивном режиме программа должна поддерживать выполнение следующих команд:*  
-- **help** : вывести справку по доступным командам
-- **info** : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)
-- **show** : вывести в стандартный поток вывода все элементы коллекции в строковом представлении
-- **insert null {element}** : добавить новый элемент с заданным ключом
-- **update id {element}** : обновить значение элемента коллекции, id которого равен заданному
-- **remove_key null** : удалить элемент из коллекции по его ключу
-- **clear** : очистить коллекцию
-- **save** : сохранить коллекцию в файл
-- **execute_script file_name** : считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.
-- **exit** : завершить программу (без сохранения в файл)
-- **remove_lower {element}** : удалить из коллекции все элементы, меньшие, чем заданный
-- **history** : вывести последние 10 команд (без их аргументов)
-- **remove_lower_key null** : удалить из коллекции все элементы, ключ которых меньше, чем заданный
-- **remove_any_by_unit_of_measure unitOfMeasure** : удалить из коллекции один элемент, значение поля unitOfMeasure которого эквивалентно заданному
-- **average_of_manufacture_cost** : вывести среднее значение поля manufactureCost для всех элементов коллекции
-- **group_counting_by_price** : сгруппировать элементы коллекции по значению поля price, вывести количество элементов в каждой группе
+
+-----
+
+In interactive mode, the program must support the following commands:
+
+- `help` : display help for the available commands
+- `info` : output information about the collection to standard output (type, initialization date, number of elements, etc.)
+- `show` : output all elements of the collection in string representation to standard output
+- `insert null {element}` : add a new element with the specified key
+- `update id {element}` : update the value of the collection element whose `id` equals the specified one
+- `remove_key null` : remove an element from the collection by its key
+- `clear` : clear the collection
+- `save` : save the collection to a file
+- `execute_script file_name` : read and execute a script from the specified file. The script contains commands in the same form as the user enters them in interactive mode.
+- `exit` : terminate the program (without saving to the file)
+- `remove_lower {element}` : remove from the collection all elements that are less than the specified one
+- `history` : output the last 10 commands (without their arguments)
+- `remove_lower_key null` : remove from the collection all elements whose key is less than the specified one
+- `remove_any_by_unit_of_measure unitOfMeasure` : remove one element from the collection whose `unitOfMeasure` field value is equivalent to the specified one
+- `average_of_manufacture_cost` : output the average value of the `manufactureCost` field for all elements
+- `group_counting_by_price` : group the collection elements by the value of the `price` field and output the number of elements in each group
+
+**Command Input Format:**
+
+* All command arguments that are standard data types (primitive types, wrapper classes, `String`, date/time classes) must be entered on the same line as the command name.
+* All composite data types (class objects stored in a collection) must be entered one field per line.
+* When entering composite data types, the user must be shown a prompt containing the field name (for example, “Enter date of birth:”).
+* If a field is an enum, the name of one of its constants must be entered (the list of constants must be displayed beforehand).
+* If the user input is invalid (e.g., a string that is not a valid enum constant; a string entered instead of a number; a number outside the allowed range, etc.), an error message must be displayed and the user must be prompted to re-enter the field.
+* To enter `null` values, use an empty string.
+* Fields marked with the comment “The value of this field must be generated automatically” must not be entered manually by the user when adding a new object.
 
 ---
 
-*Формат ввода команд:*
-- Все аргументы команды, являющиеся стандартными типами данных (примитивные типы, классы-оболочки, String, классы для хранения дат), должны вводиться в той же строке, что и имя команды.   
-- Все составные типы данных (объекты классов, хранящиеся в коллекции) должны вводиться по одному полю в строку.  
-- При вводе составных типов данных пользователю должно показываться приглашение к вводу, содержащее имя поля (например, "Введите дату рождения:")  
-- Если поле является enum'ом, то вводится имя одной из его констант (при этом список констант должен быть предварительно выведен).  
-- При некорректном пользовательском вводе (введена строка, не являющаяся именем константы в enum'е; введена строка вместо числа; введённое число не входит в указанные границы и т.п.) должно быть показано сообщение об ошибке и предложено повторить ввод поля.  
-- Для ввода значений null использовать пустую строку.  
-- Поля с комментарием "Значение этого поля должно генерироваться автоматически" не должны вводиться пользователем вручную при добавлении.  
+**Description of the classes stored in the collection:**
 
------
-*Описание хранимых в коллекции классов:*  
 
 
         public class Product {  
@@ -79,5 +83,4 @@
                 MILLILITERS,  
                 GRAMS;  
         } 
-
 
